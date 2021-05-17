@@ -1,0 +1,252 @@
+<nav class="navbar navbar-light bg-dark justify-content-between fixed-top" >
+  <a class="navbar-brand" style="color: white; font-weight: 650; font-size: 25px;">Film App</a>
+  <form class="form-inline">
+    <button class="btn btn-primary mr-5" style="border-radius: 18px;">Add Film with Director</button>
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>  
+  </form>
+</nav>
+<div class="text-center mt-5" style=" align-items: center; margin-top: 120px;">
+  <h4  class="text-dark  mt-5" style="font-weight: 700; margin: auto;">Add Film With Director List Form</h4>
+</div>
+
+  <div class="card mt-5 ml-5 mr-5 " style="padding: 20px;">
+   
+    <form #registerFilmForm="ngForm" (ngSubmit)="register(registerFilmForm.value)">
+      <div class="from-group">
+
+        <div class="from-group mt-3">
+          <label for="name">Film Name :</label>
+          <input type="text" id="filmName" #filmName (ngModel)="filmName" name="filmName" required class="form-control"
+            placeholder="Enter Film Name">
+        </div>
+
+        <div class="from-group mt-3">
+          <label for="name">Box Office Collection :</label>
+          <input type="text" id="boxOfficeCollection" #boxOfficeCollection (ngModel)="boxOfficeCollection"
+            name="boxOfficeCollection" class="form-control" placeholder="Enter Box Office Collection">
+        </div>
+
+        <div class="from-group mt-3">
+          <label for="name">Film Rating :</label>
+          <input type="number" id="filmRating" #filmRating (ngModel)="filmRating" name="filmRating" class="form-control"
+            placeholder="Enter film Rating">
+        </div>
+
+        <div class="from-group mt-3">
+          <label for="name">Director Name :</label>
+          <input type="text" id="directorName" #directorName (ngModel)="directorName" name="directorName"
+            class="form-control" placeholder="Enter director Name">
+        </div>
+
+        <div class="from-group mt-3">
+          <label for="name">Director Age :</label>
+          <input type="number" id="directorAge" #directorAge (ngModel)="directorAge" name="directorAge"
+            class="form-control" placeholder="Enter director Age">
+        </div>
+
+
+        <div class="from-group mt-3">
+          <label for="name">Director Gender :</label>
+          <input type="text" id="directorGender" #directorGender (ngModel)="directorGender" name="directorGender"
+            class="form-control" placeholder="Enter director Gender">
+        </div>
+
+
+        <div class="from-group mt-3">
+          <label for="name">Director Award Count :</label>
+          <input type="number" id="awardCount" #awardCount (ngModel)="awardCount" name="awardCount" class="form-control"
+            placeholder="Enter award Count">
+        </div>
+
+
+        <div class="from-group mt-3">
+          <input type="submit" value="Add Film" class="btn btn-outline-primary">
+          <input type="reset" value="Reset" class="btn btn-secondary ml-3">
+        </div>
+      </div>
+    </form>
+    <div class=" text-center mt-3" style="align-items: center;">
+      <button class="btn btn-outline-success mt-3" (click)="addMoredirector()">Add More Director</button>
+    </div>
+  </div>
+
+
+
+  <div class="card mt-5 ml-5 mr-5 shadow p-3 bg-white rounded border border-light">
+    <table class="table table-bordered table-hover" style="text-align: center;">
+      <thead class="thead-dark ">
+        <tr>
+          <th>film Id</th>
+          <th>film Name</th>
+          <th>Box Office Collection</th>
+          <th>Film Rating</th>
+          <th>View All Director</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody class="tbody mb-5">
+        <tr *ngFor=" let f of films">
+          <!--This *ngFor is an for loop in Angular -->
+          <td>{{f.filmId}}</td>
+          <td>{{f.filmName}}</td>
+          <td>{{f.boxOfficeCollection}}</td>
+          <td>
+            <ngb-rating rate={{f.filmRating}} [readonly]="true"></ngb-rating>
+          </td>
+          <td><button type="button" (click)="viewAllDirector(f)" class=" btn btn-info" data-toggle="modal"
+              data-target="#exampleModalNumbers">View Director</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteFilm(f)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+  <!-- Modal For Viewing  Director list  -->
+  <div class="modal fade" id="exampleModalNumbers" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Director List</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-hover" style="align-items: center;">
+            <thead class="thead-info">
+              <tr>
+                <th>Director Name</th>
+                <th>Director Age</th>
+                <th>Director Gender</th>
+                <th>Director AwardCount</th>
+              </tr>
+            </thead>
+            <tbody class="tbody mb-5">
+              <tr *ngFor=" let d of directorslist">
+                <td>{{d.directorName}}</td>
+                <td>{{d.directorAge}}</td>
+                <td>{{d.directorGender}}</td>
+                <td>{{d.awardCount}}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="card mt-5 ml-5 mr-5 shadow p-3 bg-white rounded border border-light">
+    <table class="table table-bordered table-hover" style="text-align: center;">
+      <thead class="thead-dark ">
+        <tr>
+          <th>Director Name</th>
+          <th>Director Age</th>
+          <th>Director Gender</th>
+          <th>Director AwardCount</th>
+          <th>Update Director</th>
+        </tr>
+      </thead>
+      <tbody class="tbody mb-5">
+        <tr *ngFor=" let d of directorsRecords">
+          <td>{{d.directorName}}</td>
+          <td>{{d.directorAge}}</td>
+          <td>{{d.directorGender}}</td>
+          <td>{{d.awardCount}}</td>
+          <td><button id="updateDirector" (click)="updateDirectorDetail(d)" data-toggle="modal"
+              data-target="#exampleModalUpdate" class="btn btn-outline-success">Update</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+  <!-- Modal for update Director Details -->
+  <div class="modal fade" id="exampleModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update Director Detail</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="from-group mt-3">
+              <label for="name">Director Name :</label>
+              <input type="text" id="directorName" disabled #directorName
+                [(ngModel)]="updateOnlyDirectorDetail.directorName" name="directorName" class="form-control"
+                placeholder="Enter director Name">
+            </div>
+
+            <div class="from-group mt-3">
+              <label for="name">Director Age :</label>
+              <input type="number" id="directorAge" #directorAge [(ngModel)]="updateOnlyDirectorDetail.directorAge"
+                name="directorAge" class="form-control" placeholder="Enter director Age">
+            </div>
+
+
+            <div class="from-group mt-3">
+              <label for="name">Director Gender :</label>
+              <input type="text" id="directorGender" disabled #directorGender
+                [(ngModel)]="updateOnlyDirectorDetail.directorGender" name="directorGender" class="form-control"
+                placeholder="Enter director Gender">
+            </div>
+
+
+            <div class="from-group mt-3">
+              <label for="name">Director Award Count :</label>
+              <input type="number" id="awardCount" #awardCount [(ngModel)]="updateOnlyDirectorDetail.awardCount"
+                name="awardCount" class="form-control" placeholder="Enter award Count">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" (click)="updateDirectorAgeAward()" class="btn btn-outline-primary"
+            data-dismiss="modal">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="container mt-5 mb-3 " *ngFor=" let f of films">
+    <div class="row">
+      <div class="col-sm">
+        <div class="shadow p-3 bg-white rounded border border-secondary" >
+          
+          <h4 class="text-center" style="background-color: #252627; color: #fff; size: 45px; border-radius: 3px;">
+            {{f.filmName}}</h4>
+          <p style="margin-top: 5px;"><b>Film Id:</b> {{f.filmId}}</p>
+          <p style="margin-top: 5px;"><b>BoxOfficeCollection:</b> {{f.boxOfficeCollection}}</p>
+         
+          <p><b>Rating: </b>
+            <ngb-rating rate={{f.filmRating}} [readonly]="true" style="color: green;"></ngb-rating>
+          </p>
+          <div class="inline" style="text-align: center;">
+            <button class="btn btn-info"
+              style="width: 120px; height: 35px; text-align: center;margin-bottom: 20px; border-radius: 15px; "
+              data-toggle="modal" data-target="#exampleModalNumbers" (click)="viewAllDirector(f)">View Directors</button>
+            <button class="btn btn-danger ml-3" (click)="deleteFilm(f)" style="width: 120px; height: 35px; text-align: center; margin-bottom: 20px; border-radius: 18px;">Delete Film</button>
+          </div>
+        </div>
+      
+      </div>
+      
+    </div>
+  </div>

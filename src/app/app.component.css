@@ -1,0 +1,8 @@
+row{
+    display: flex;
+}
+
+.container{
+    float: left;
+    width: 33.33%;
+}
